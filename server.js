@@ -1,6 +1,6 @@
 import express from "express";
 import cors from 'cors';
-import mysql from 'mysql'
+import mysql from 'mysql2'
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
@@ -23,13 +23,14 @@ app.use(cors())
 app.use(express.json());
 
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '9943060731',  
-    database: 'emp'
+// const db = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '9943060731',  
+//     database: 'emp'
 
-})
+// })
+const db = mysql.createConnection(`mysql://avnadmin:AVNS_sdwvMqm_eFn5ewoJXi3@mysql-2b1fb47c-dhanushlib.a.aivencloud.com:21992/employee`);
 
 
 // console.log(name,email,dob,dept,gender,phone)
@@ -103,6 +104,7 @@ app.get('/view',(req,res)=>{
     db.query(sql,(err,result)=>{
         if(!err){
             res.send(result);
+            return(result);
         }
         else{
             console.error(err)
